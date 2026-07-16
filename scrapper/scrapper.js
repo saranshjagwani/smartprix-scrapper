@@ -96,8 +96,8 @@ if (isWindows) {
 }
 
 
-console.log("Chrome Path:", chromePath);
-console.log("Exists:", fs.existsSync(chromePath));
+console.log("Chrome Path:", executablePath);
+console.log("Exists:", fs.existsSync(executablePath));
 
 const launchOptions = await puppeteer.launch({
   executablePath,
@@ -108,7 +108,7 @@ const launchOptions = await puppeteer.launch({
     "--disable-dev-shm-usage",
   ],
 });
-const chromePath = await puppeteer.executablePath();
+
 
 
   let browser;
