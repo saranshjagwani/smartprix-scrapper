@@ -84,14 +84,15 @@ async function resolveCleanLink(browser, affiliateUrl) {
 export async function scrapeSmartprix(url) {
   const isWindows = process.platform === "win32";
   const launchOptions = {
-    headless: "new",
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-gpu",
-    ],
-  };
+   executablePath: puppeteer.executablePath(),
+  headless: true,
+  args: [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+  ],
+};
+
+console.log("Using:", puppeteer.executablePath());
 
   if (isWindows) {
     launchOptions.executablePath =
