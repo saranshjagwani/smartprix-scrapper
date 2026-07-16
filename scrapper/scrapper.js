@@ -1,4 +1,6 @@
 import puppeteer from "puppeteer";
+import fs from "fs";
+
 
 // Helper function to dynamically resolve affiliate hops quickly
 /**
@@ -82,21 +84,32 @@ async function resolveCleanLink(browser, affiliateUrl) {
   }
 }
 export async function scrapeSmartprix(url) {
-  
- const launchOptions = {
+  const isWindows = process.platform === "win32";
+
+let executablePath;
+
+if (isWindows) {
+  executablePath =
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+} else {
+  executablePath = await puppeteer.executablePath();
+}
+
+console.log("Chrome Path:", executablePath);
+
+const launchOptions = await puppeteer.launch({
+  executablePath,
   headless: true,
   args: [
     "--no-sandbox",
     "--disable-setuid-sandbox",
     "--disable-dev-shm-usage",
   ],
-};
+});
+const chromePath = await puppeteer.executablePath();
 
-if (process.platform === "win32") {
-  launchOptions.executablePath =
-    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-}
-
+console.log("Chrome Path:", chromePath);
+console.log("Exists:", fs.existsSync(chromePath));
   let browser;
 
   try {
