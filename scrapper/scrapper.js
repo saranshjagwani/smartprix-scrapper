@@ -95,7 +95,9 @@ if (isWindows) {
   executablePath = await puppeteer.executablePath();
 }
 
-console.log("Chrome Path:", executablePath);
+
+console.log("Chrome Path:", chromePath);
+console.log("Exists:", fs.existsSync(chromePath));
 
 const launchOptions = await puppeteer.launch({
   executablePath,
@@ -108,8 +110,7 @@ const launchOptions = await puppeteer.launch({
 });
 const chromePath = await puppeteer.executablePath();
 
-console.log("Chrome Path:", chromePath);
-console.log("Exists:", fs.existsSync(chromePath));
+
   let browser;
 
   try {
