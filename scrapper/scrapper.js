@@ -82,28 +82,20 @@ async function resolveCleanLink(browser, affiliateUrl) {
   }
 }
 export async function scrapeSmartprix(url) {
-  const isWindows = process.platform === "win32";
-
-let executablePath;
-
-if (isWindows) {
-  executablePath =
-    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
-} else {
-  executablePath = await puppeteer.executablePath();
-}
-
-console.log("Chrome Path:", executablePath);
-
-const launchOptions = await puppeteer.launch({
-  executablePath,
+  
+ const launchOptions = {
   headless: true,
   args: [
     "--no-sandbox",
     "--disable-setuid-sandbox",
     "--disable-dev-shm-usage",
   ],
-});
+};
+
+if (process.platform === "win32") {
+  launchOptions.executablePath =
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+}
 
   let browser;
 
